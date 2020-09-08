@@ -1,0 +1,18 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+
+<div class="container my-5">
+<table class="table table-hover" style="font-size:14px">
+<tr>
+    <td>종목번호</td>
+    <td>종목명</td>
+</tr>
+{% for list in total_list %}
+<tr>
+    <td>{{ list.corpCode }}</td>
+    <td>{{ list.corpName }}</td>
+</tr>
+{% endfor %}
+</table>
+</div>
+

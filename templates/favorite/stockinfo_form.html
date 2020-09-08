@@ -1,0 +1,15 @@
+<div class="container">
+    <table class="table" style="font-size:14px">
+        <thead>
+        <tr class="thead-dark">
+            <th>
+             <form method="post" class="post-form my-3">
+             {% csrf_token %}
+             {{ form.as_p }}
+             <button type="submit" class="btn btn-primary">저장하기</button>
+            </form>
+            </th>
+    </table>
+</div>
+
+<a href="../stocktotal_list">전종목</a>

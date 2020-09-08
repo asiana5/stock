@@ -1,0 +1,51 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+
+
+<div class="container my-5">
+
+    <table class="table table-hover" style="font-size:14px">
+        <thead>
+        <tr class="thead-dark">
+            <th width="120">종목</th>
+            <th width="130">현재가(전일비)</th>
+            <th>메모</th>
+            <th width="80">매수출발</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% load humanize %}
+        {% load mathfilters %}
+        {% if stockinfo_list %}
+        {% for Stockinfo in stockinfo_list %}
+        <tr>
+            <td><a href="/favorite/{{ Stockinfo.id }}/">{{ Stockinfo.stock_name }}</a></td>
+            <td>
+                {% if Stockinfo.stock_gab > 0 %}
+                    <font color="red">{{ Stockinfo.stock_lastprice |intcomma }} (+{{ Stockinfo.stock_gab }}%)</font>
+                {% elif Stockinfo.stock_gab < 0 %}
+                    <font color="blue">{{ Stockinfo.stock_lastprice |intcomma }} ({{ Stockinfo.stock_gab }}%)</font>
+                {% else %}
+                    <font color="black">{{ Stockinfo.stock_lastprice |intcomma  }} ({{ Stockinfo.stock_gab }}%)</font>
+                {% endif %}
+            </td>
+            <td>{{ Stockinfo.stock_memo }}</td>
+            <td>{{ Stockinfo.stock_startprice}}</td>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="4">종목이 없습니다.</td>
+        </tr>
+        {% endif %}
+        </tbody>
+        <tr>
+            <td colspan="4" align="right">
+                <div class="btn-group">
+    <a href="{% url 'favorite:stock_create' %}" class="btn btn-sm btn-danger">추가</a>
+    <a href="{% url 'favorite:stock_refresh' %}" class="btn btn-sm btn-primary">현재가 Update</a>
+    <a href="{% url 'favorite:stock_total' %}" class="btn btn-sm btn-success">전체종목</a>
+</div>
+            </td>
+        </tr>
+    </table>
+</div>
